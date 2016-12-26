@@ -9,17 +9,21 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.9"
+        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: "com.github.samueltbrown.cucumber"
+apply plugin: 'docker'
+
 
 jar {
     baseName = 'eventrock'
     version = '0.0.1-SNAPSHOT'
 }
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -40,4 +44,19 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     cucumberCompile('info.cukes:cucumber-junit:1.2.5')
     cucumberCompile('info.cukes:cucumber-spring:1.2.5')
+}
+
+// This is used as the docker image prefix (org)
+group = 'santacos'
+
+task buildDocker(type: Docker, dependsOn: build) {
+	push = true
+	applicationName = jar.baseName
+	dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
 }
