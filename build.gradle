@@ -47,7 +47,7 @@ dependencies {
 }
 
 // This is used as the docker image prefix (org)
-group = 'theesit'
+group = 'eventrock'
 
 task buildDocker(type: Docker, dependsOn: build) {
 	push = true
