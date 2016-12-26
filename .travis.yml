@@ -4,7 +4,8 @@ jdk:
 script:
   - ./gradlew check
   - ./gradlew assemble
-#  - ./gradlew buildDocker
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - ./gradlew buildDocker
 deploy:
   provider: heroku
   api_key:
