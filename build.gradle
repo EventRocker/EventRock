@@ -60,3 +60,9 @@ task buildDocker(type: Docker, dependsOn: build) {
         }
     }
 }
+
+task herokuProfile << {
+    bootRun { systemProperty "spring.profiles.active", "heroku" }
+}
+
+herokuProfile {}.finalizedBy 'bootRun'
