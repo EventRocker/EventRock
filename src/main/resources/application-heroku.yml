@@ -1,0 +1,7 @@
+security:
+    ignored: =/**
+    basic:
+      enable: false
+
+server:
+  port: ${port}

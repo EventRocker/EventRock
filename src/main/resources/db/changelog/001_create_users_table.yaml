@@ -1,0 +1,22 @@
+databaseChangeLog:
+    - changeSet:
+        id: 001
+        author: jo
+        logicalFilePath: 'create_users_table'
+        changes:
+            - createTable:
+                schemaName: public
+                tableName: users
+                columns:
+                    - column:
+                        name: username
+                        type: varchar(255)
+                    - column:
+                        name: encrypted_password
+                        type: varchar(255)
+                    - column:
+                        name: created_at
+                        type: datetime
+                    - column:
+                        name: updated_at
+                        type: datetime

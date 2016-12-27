@@ -1,0 +1,11 @@
+security:
+    ignored: =/**
+    basic:
+      enable: false
+
+spring:
+    datasource:
+        username: postgres
+        password: mysecretpassword
+        url: jdbc:postgresql://localhost:5432/eventrock
+
