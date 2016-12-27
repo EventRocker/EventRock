@@ -41,6 +41,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     cucumberCompile('info.cukes:cucumber-junit:1.2.5')
     cucumberCompile('info.cukes:cucumber-spring:1.2.5')
