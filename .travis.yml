@@ -5,6 +5,7 @@ jdk:
 services:
 - docker
 script:
+- "./infrastructure/local-db.sh"
 - "./gradlew check"
 - "./gradlew assemble"
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
