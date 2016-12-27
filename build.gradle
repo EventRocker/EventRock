@@ -50,6 +50,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.thymeleaf.extras:thymeleaf-extras-java8time')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     cucumberCompile('info.cukes:cucumber-junit:1.2.5')
     cucumberCompile('info.cukes:cucumber-spring:1.2.5')
