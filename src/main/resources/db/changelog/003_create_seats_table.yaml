@@ -1,0 +1,44 @@
+databaseChangeLog:
+    - changeSet:
+        id: 003
+        author: cos
+        logicalFilePath: 'create_seats_table'
+        changes:
+            - createTable:
+                schemaName: public
+                tableName: seats
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        autoIncrement: true
+                        constraints:
+                          primaryKey: true
+                          nullable: false
+                    - column:
+                        name: name
+                        type: varchar(64)
+                    - column:
+                        name: price
+                        type: decimal
+                    - column:
+                        name: number_of_seats
+                        type: bigint
+                    - column:
+                        name: created_at
+                        type: datetime
+                    - column:
+                        name: updated_at
+                        type: datetime
+                    - column:
+                        name: event_id
+                        type: bigint
+            - addForeignKeyConstraint:
+                  baseColumnNames: event_id
+                  baseTableName: seats
+                  constraintName: fk_event_seat
+                  deferrable: true
+                  onDelete: CASCADE
+                  onUpdate: RESTRICT
+                  referencedColumnNames: id
+                  referencedTableName: events

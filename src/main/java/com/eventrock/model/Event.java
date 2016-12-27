@@ -2,30 +2,53 @@ package com.eventrock.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Entity
+@Table(name = "events")
 public class Event {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
+
+    @Column(length = 64)
     private String name;
+
+    @Column(length = 255)
     private String description;
 
+    @Column(length = 255)
     private String place;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column
     private LocalDate startDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column
     private LocalDate endDate;
 
     @DateTimeFormat(pattern = "HH:mm")
+    @Column
     private LocalTime startTime;
 
     @DateTimeFormat(pattern = "HH:mm")
+    @Column
     private LocalTime endTime;
 
+    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private Seat seat;
 
-    public Event() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

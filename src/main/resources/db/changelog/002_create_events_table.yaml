@@ -1,0 +1,44 @@
+databaseChangeLog:
+    - changeSet:
+        id: 002
+        author: cos
+        logicalFilePath: 'create_events_table'
+        changes:
+            - createTable:
+                schemaName: public
+                tableName: events
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        autoIncrement: true
+                        constraints:
+                          primaryKey: true
+                          nullable: false
+                    - column:
+                        name: name
+                        type: varchar(64)
+                    - column:
+                        name: description
+                        type: varchar(255)
+                    - column:
+                        name: place
+                        type: varchar(255)
+                    - column:
+                        name: start_date
+                        type: datetime
+                    - column:
+                        name: end_date
+                        type: datetime
+                    - column:
+                        name: start_time
+                        type: time
+                    - column:
+                        name: end_time
+                        type: time
+                    - column:
+                        name: created_at
+                        type: datetime
+                    - column:
+                        name: updated_at
+                        type: datetime

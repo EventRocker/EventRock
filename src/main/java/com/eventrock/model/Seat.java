@@ -1,15 +1,35 @@
 package com.eventrock.model;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
-
+@Entity
+@Table(name = "seats")
 public class Seat {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 64)
     private String name;
+
+    @Column
     private BigDecimal price;
+
+    @Column
     private Integer numberOfSeats;
 
-    public Seat(){
+    @OneToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,5 +54,13 @@ public class Seat {
 
     public void setNumberOfSeats(Integer numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

@@ -2,3 +2,9 @@ databaseChangeLog:
     - include:
           file: 001_create_users_table.yaml
           relativeToChangelogFile: true
+    - include:
+          file: 002_create_events_table.yaml
+          relativeToChangelogFile: true
+    - include:
+          file: 003_create_seats_table.yaml
+          relativeToChangelogFile: true
