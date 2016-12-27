@@ -23,6 +23,8 @@ public class Event {
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime endTime;
 
+    private Seat seat;
+
     public Event() {
     }
 
@@ -80,5 +82,13 @@ public class Event {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 }

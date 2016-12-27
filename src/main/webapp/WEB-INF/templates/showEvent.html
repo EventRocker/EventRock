@@ -15,33 +15,46 @@
     </div>
     <div>
         <label> Event name: </label>
-        <label th:text="${event.name}"></label>
+        <span th:text="${event.name}"></span>
     </div>
     <div>
         <label> Description: </label>
-        <label th:text="${event.description}"></label>
+        <span th:text="${event.description}"></span>
     </div>
     <div>
         <label> Place: </label>
-        <label th:text="${event.place}"></label>
+        <span th:text="${event.place}"></span>
     </div>
     <div>
         <label> Start Date: </label>
-        <label th:text="${#temporals.format(event.startDate, 'dd/MMM/yyyy')}"></label>
-    </div>
-    <div>
-        <label> End Date: </label>
-        <label th:text="${#temporals.format(event.endDate, 'dd/MMM/yyyy')}"></label>
+        <span th:text="${#temporals.format(event.startDate, 'dd/MMM/yyyy')}"></span>
     </div>
     <div>
         <label> Start Time: </label>
-        <label th:text="${#temporals.format(event.startTime, 'HH:mm')}"></label>
+        <span th:text="${#temporals.format(event.startTime, 'HH:mm')}"></span>
+    </div>
+    <div>
+        <label> End Date: </label>
+        <span th:text="${#temporals.format(event.endDate, 'dd/MMM/yyyy')}"></span>
     </div>
     <div>
         <label> End Time: </label>
-        <label th:text="${#temporals.format(event.endTime, 'HH:mm')}"></label>
+        <span th:text="${#temporals.format(event.endTime, 'HH:mm')}"></span>
     </div>
     <hr/>
+    <h2>Seat Detail:</h2>
+    <div>
+        <label> Seat Name: </label>
+        <span th:text="${event.seat.name}"></span>
+    </div>
+    <div>
+        <label> Seat Price: </label>
+        <span th:text="${event.seat.price}"></span>
+    </div>
+    <div>
+        <label> Number of seats: </label>
+        <span th:text="${event.seat.numberOfSeats}"></span>
+    </div>
 
 </div>
 </body>
