@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+<form th:action="@{/registration}" th:object="${userForm}" method="post">
+    <div th:if="${#fields.hasErrors('${userForm.username}')}">
+        <p>Username Should not Empty or Contain only Space</p>
+    </div>
+    <label>Username</label>:
+    <input type="text" id="username" th:field="${userForm.username}" /> <br />
+    <div th:if="${#fields.hasErrors('${userForm.password}')}">
+        <p>Password Should not Empty or Contain only Space</p>
+    </div>
+    <div th:if="${#fields.hasErrors('${userForm.passwordConfirm}')}">
+        <p>Confirm Password Must same as Password</p>
+    </div>
+    <label for="password">Password</label>:
+    <input type="password" id="password" th:field="${userForm.password}" /> <br />
+    <label for="passwordConfirm">Confirm Password</label>:
+    <input type="password" id="passwordConfirm" th:field="${userForm.passwordConfirm}" /> <br />
+    <input type="submit" value="Sign up"/>
+</form>
+<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+</body>
+</html>
