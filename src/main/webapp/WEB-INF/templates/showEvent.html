@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container">
+    <h1>Event Detail!</h1>
+    <hr/>
+    <div th:if="${success}" class="alert alert-success" role="alert">
+        <strong>Well done!</strong> You successfully create this event!.
+    </div>
+    <div>
+        <label> Event name: </label>
+        <label th:text="${event.name}"></label>
+    </div>
+    <div>
+        <label> Description: </label>
+        <label th:text="${event.description}"></label>
+    </div>
+    <div>
+        <label> Place: </label>
+        <label th:text="${event.place}"></label>
+    </div>
+    <div>
+        <label> Start Date: </label>
+        <label th:text="${#temporals.format(event.startDate, 'dd/MMM/yyyy')}"></label>
+    </div>
+    <div>
+        <label> End Date: </label>
+        <label th:text="${#temporals.format(event.endDate, 'dd/MMM/yyyy')}"></label>
+    </div>
+    <div>
+        <label> Start Time: </label>
+        <label th:text="${#temporals.format(event.startTime, 'HH:mm')}"></label>
+    </div>
+    <div>
+        <label> End Time: </label>
+        <label th:text="${#temporals.format(event.endTime, 'HH:mm')}"></label>
+    </div>
+    <hr/>
+
+</div>
+</body>
+</html>
