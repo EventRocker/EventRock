@@ -8,6 +8,6 @@ server:
 
 spring:
     datasource:
-        username: tatyjxnuizstyc
-        password: 2b1686f9c2ea9be4b6a6d0b8bad4f895f41e77b19f1cd55e83f8c25c5d782818
-        url: jdbc:postgres://ec2-54-163-236-33.compute-1.amazonaws.com:5432/da7bftt9ohnjkk
+        username: opevllmmemtwcy
+        password: c87a2e1346aa3261d2bc1e189dd8450beb7ed520f44838de0149897c12d4a0eb
+        url: jdbc:postgres://ec2-23-21-213-202.compute-1.amazonaws.com:5432/dbr0ld5h56k4ml
