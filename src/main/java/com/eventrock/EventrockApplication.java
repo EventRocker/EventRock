@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EventrockApplication {
 
-	@RequestMapping("/")
-	public String home(){
-		return "Hello EventRock!";
-	}
+//	@RequestMapping("/")
+//	public String home(){
+//		return "Hello EventRock!";
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(EventrockApplication.class, args);
