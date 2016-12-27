@@ -1,7 +1,13 @@
 package com.eventrock.controller;
 
-/**
- * Created by peerapat on 27/12/2016.
- */
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
 public class UserController {
+
+//    @RequestMapping(value = "/signUp")
+//    public String index(){
+//        return "index";
+//    }
 }
