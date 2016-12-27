@@ -9,8 +9,10 @@ script:
 - "./gradlew assemble"
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 - "./gradlew buildDocker"
-deploy:
-  provider: heroku
-  api_key:
-    secure: hB4d6uNF1etPmDxNNtMoNSC1HGBzZtep/sOg2qgFOJjz7nIy5CTDgMi42B8oVbNWXY4WgnEzzarHSjXWhHT5PrvJsbetLb8qdCRadtdcg7be41mLjNKpCn5UOOu+TkwGHOiHj37vMS6qSBL5g/Ffu94RwO9X7ZHqUCsUE2XWGcJRT242z2m/r/PMAUu8jydn1RKE+E7UygJVn8qwpOjWJ+lsyLLMYmG3dqh2RvvkaaWLFYD2mpsVh5uWbUMffIKRZ4i/PW0+Bg+MgheBaHCcQgXSlTUzQLo4v53TrGFl/0O5FUOyiaaWeivLyvjfhHC8jpfhI79XCqtngDY3+JHNmPJTWUnBBtsqjp9JYlWBeGagyeK7WCv30P36Es8Do80jeKgr+C+3htw631vPQfoPQ2WU0XQ1TVGWNXelHzedo4L5GnvGXQ3uQMQoLi2m0ouRDTgH/nHADOzz+RwDrXkfGPO5vjqF3vJuHkXzN+IfloQHqS55SaIPfT9L96wNZJ/KzozvPP1sitqpnP9yr6FkqYRtlYHbuHdjvQ/cIH7Wr3OjnxCGkXi94oFH2MzE/UJ/c6Q3mrXQ9o3BZqNpVfCAqAko4F/x79raIrOF9m1kBd1knJkDeJ1Hd3Fq6cbAVv7TDqba9t/2QM1POlkZ0O6T82tk1OICzgymGi6sIKXoF4o=
-  app: event-rock
+- docker tag eventrock/eventrock registry.heroku.com/event-rock/web
+- docker push registry.heroku.com/event-rock/web
+#deploy:
+#  provider: heroku
+#  api_key:
+#    secure: hB4d6uNF1etPmDxNNtMoNSC1HGBzZtep/sOg2qgFOJjz7nIy5CTDgMi42B8oVbNWXY4WgnEzzarHSjXWhHT5PrvJsbetLb8qdCRadtdcg7be41mLjNKpCn5UOOu+TkwGHOiHj37vMS6qSBL5g/Ffu94RwO9X7ZHqUCsUE2XWGcJRT242z2m/r/PMAUu8jydn1RKE+E7UygJVn8qwpOjWJ+lsyLLMYmG3dqh2RvvkaaWLFYD2mpsVh5uWbUMffIKRZ4i/PW0+Bg+MgheBaHCcQgXSlTUzQLo4v53TrGFl/0O5FUOyiaaWeivLyvjfhHC8jpfhI79XCqtngDY3+JHNmPJTWUnBBtsqjp9JYlWBeGagyeK7WCv30P36Es8Do80jeKgr+C+3htw631vPQfoPQ2WU0XQ1TVGWNXelHzedo4L5GnvGXQ3uQMQoLi2m0ouRDTgH/nHADOzz+RwDrXkfGPO5vjqF3vJuHkXzN+IfloQHqS55SaIPfT9L96wNZJ/KzozvPP1sitqpnP9yr6FkqYRtlYHbuHdjvQ/cIH7Wr3OjnxCGkXi94oFH2MzE/UJ/c6Q3mrXQ9o3BZqNpVfCAqAko4F/x79raIrOF9m1kBd1knJkDeJ1Hd3Fq6cbAVv7TDqba9t/2QM1POlkZ0O6T82tk1OICzgymGi6sIKXoF4o=
+#  app: event-rock
