@@ -44,6 +44,7 @@ cucumber {
 
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-devtools")
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
@@ -58,6 +59,7 @@ dependencies {
     compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
     compile group: 'org.yaml', name: 'snakeyaml', version: '1.17'
     compile group: 'org.liquibase', name: 'liquibase-core'
+    compile("com.h2database:h2")
 }
 
 // This is used as the docker image prefix (org)
@@ -80,6 +82,12 @@ task herokuProfile << {
 }
 
 herokuProfile {}.finalizedBy 'bootRun'
+
+task h2Profile << {
+    bootRun { systemProperty "spring.profiles.active", "h2" }
+}
+
+h2Profile {}.finalizedBy 'bootRun'
 
 
 liquibase {
