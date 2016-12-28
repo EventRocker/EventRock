@@ -9,7 +9,6 @@ databaseChangeLog:
               - column:
                   name: user_id
                   type: bigint
-            schemaName: public
             tableName: events
         - addForeignKeyConstraint:
             baseColumnNames: user_id

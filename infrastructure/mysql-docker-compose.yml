@@ -1,0 +1,13 @@
+version: '2'
+services:
+  db:
+    container_name: mysql
+    image: mysql:5.7.13
+    environment:
+      TZ: 'Asia/Bangkok'
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: eventrock
+      MYSQL_USER: eventrock
+      MYSQL_PASSWORD: mysecretpassword
+    ports:
+      - "3306:3306"

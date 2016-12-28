@@ -5,7 +5,6 @@ databaseChangeLog:
         logicalFilePath: 'create_events_table'
         changes:
             - createTable:
-                schemaName: public
                 tableName: events
                 columns:
                     - column:

@@ -5,7 +5,6 @@ databaseChangeLog:
         logicalFilePath: 'create_users_table'
         changes:
             - createTable:
-                schemaName: public
                 tableName: users
                 columns:
                     - column:

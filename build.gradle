@@ -12,6 +12,7 @@ buildscript {
         classpath('se.transmode.gradle:gradle-docker:1.2')
         classpath('org.postgresql:postgresql:9.4-1201-jdbc41')
         classpath("com.h2database:h2:1.4.193")
+        classpath('mysql:mysql-connector-java:6.0.4')
         classpath('org.yaml:snakeyaml:1.17')
     }
 }
@@ -58,6 +59,7 @@ dependencies {
     cucumberCompile('info.cukes:cucumber-spring:1.2.5')
     compile 'org.springframework.data:spring-data-jpa:1.10.6.RELEASE'
     compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
+    compile 'mysql:mysql-connector-java:6.0.4'
     compile group: 'org.yaml', name: 'snakeyaml', version: '1.17'
     compile group: 'org.liquibase', name: 'liquibase-core'
     compile("com.h2database:h2")
@@ -105,10 +107,10 @@ liquibase {
                 driver 'org.h2.Driver'
 
             } else {
-                url 'jdbc:postgresql://localhost:5432/eventrock'
-                username 'postgres'
+                url 'jdbc:mysql://localhost:3306/eventrock?nullNamePatternMatchesAll=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&createDatabaseIfNotExist=true&serverTimezone=Asia/Bangkok&useTimezone=true'
+                username 'eventrock'
                 password 'mysecretpassword'
-                driver 'org.postgresql.Driver'
+                driver 'com.mysql.cj.jdbc.Driver'
             }
         }
     }
