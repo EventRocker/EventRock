@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006
+      author: P
+      logicalFilePath: 'add_user_id_to_events_table'
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+            schemaName: public
+            tableName: events
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: events
+            constraintName: fk_user_event
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: users
