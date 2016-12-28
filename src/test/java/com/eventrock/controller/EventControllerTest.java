@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -131,6 +132,8 @@ public class EventControllerTest {
 
     @Test
     public void viewDetail_shouldReturnDetailPage() throws Exception {
+        Event event = stubEvent("event1");
+        Mockito.when(eventRepository.findOneById(1L)).thenReturn(Optional.of(event));
         assertThat(eventController.viewDetail(new ExtendedModelMap(), 1), is("event/showEvent"));
     }
 
@@ -138,7 +141,7 @@ public class EventControllerTest {
     public void viewDetail_shouldGetEventFromEventRepository() throws Exception {
         Model model = new ExtendedModelMap();
         Event event = stubEvent("event1");
-        Mockito.when(eventRepository.findOne(1L)).thenReturn(event);
+        Mockito.when(eventRepository.findOneById(1L)).thenReturn(Optional.of(event));
         eventController.viewDetail(model, 1);
         assertThat(model.asMap().get("event"), is(event));
     }

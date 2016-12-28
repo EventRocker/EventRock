@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping(value = "/events")
 @Controller
@@ -42,7 +43,7 @@ public class EventController {
         return "event/showEvent";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String viewAllEvents(Model model) {
         List<Event> events = eventRepository.findAll();
         model.addAttribute("events", events);
@@ -51,8 +52,11 @@ public class EventController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String viewDetail(Model model, @PathVariable long id) {
-        Event event = eventRepository.findOne(id);
-        model.addAttribute("event", event);
+        Optional<Event> event = eventRepository.findOneById(id);
+        if(!event.isPresent()){
+            return "pageNotFound";
+        }
+        model.addAttribute("event", event.get());
         model.addAttribute("success", false);
         return "event/showEvent";
     }
