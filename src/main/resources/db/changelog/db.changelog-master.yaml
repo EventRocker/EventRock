@@ -8,3 +8,9 @@ databaseChangeLog:
     - include:
           file: 003_create_seats_table.yaml
           relativeToChangelogFile: true
+    - include:
+          file: 004_change_password_column_name_users_table.yaml
+          relativeToChangelogFile: true
+    - include:
+          file: 005_add_id_to_password_column.yaml
+          relativeToChangelogFile: true

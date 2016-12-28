@@ -1,6 +1,8 @@
 package com.eventrock.controller;
 
 import com.eventrock.model.User;
+import com.eventrock.repository.UserRepository;
+import com.eventrock.service.UserService;
 import com.eventrock.validator.UserValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +22,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserControllerTest {
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private UserService userService;
+
     @Mock
     private BindingResult bindingResult;
 

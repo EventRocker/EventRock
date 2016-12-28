@@ -1,6 +1,7 @@
 package com.eventrock.controller;
 
 import com.eventrock.model.User;
+import com.eventrock.service.UserService;
 import com.eventrock.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
+
 @Controller
 public class UserController {
 
-//    @Autowired
-//    private UserService userService;
-//
+    @Autowired
+    private UserService userService;
+
     @Autowired
     private UserValidator userValidator;
 
@@ -26,16 +29,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String createUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,Model model) {
+    public String createUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
 
         userValidator.validate(userForm, bindingResult);
-
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
-//        userService.save(userForm);
+        userService.save(userForm);
 
         return "redirect:/home";
     }
