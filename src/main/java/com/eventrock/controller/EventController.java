@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @RequestMapping(value = "/events")
 @Controller
 public class EventController {
@@ -23,7 +25,7 @@ public class EventController {
     @RequestMapping(value = "/create" , method = RequestMethod.GET)
     public String index(Model model){
         model.addAttribute("event", new Event());
-        return "index";
+        return "event/createEvent";
     }
 
     @RequestMapping(value = "/create" , method = RequestMethod.POST)
@@ -31,6 +33,20 @@ public class EventController {
         model.addAttribute("event", event);
         model.addAttribute("success", true);
         eventRepository.save(event);
-        return "showEvent";
+        return "event/showEvent";
+    }
+
+    @RequestMapping(value = "/" , method = RequestMethod.GET)
+    public String viewAllEvents(Model model) {
+        List<Event> events = eventRepository.findAll();
+        model.addAttribute("events", events);
+        return "event/index";
+    }
+
+    @RequestMapping(value = "/detail" , method = RequestMethod.GET)
+    public String viewDetail(Model model) {
+        model.addAttribute("event", new Event());
+        model.addAttribute("success", false);
+        return "event/showEvent";
     }
 }
