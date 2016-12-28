@@ -8,7 +8,7 @@ server:
 
 spring:
     datasource:
-        username: opevllmmemtwcy
-        password: c87a2e1346aa3261d2bc1e189dd8450beb7ed520f44838de0149897c12d4a0eb
-        url: jdbc:postgresql://ec2-23-21-213-202.compute-1.amazonaws.com:5432/dbr0ld5h56k4ml?sslmode=require
-        driverClassName: org.postgresql.Driver
+        username: bc71ae9f0e841e
+        password: 3f0cebd3
+        url: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_6f766f8a99167ac?nullNamePatternMatchesAll=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&createDatabaseIfNotExist=true&serverTimezone=Asia/Bangkok&useTimezone=true&reconnect=true
+        driverClassName: com.mysql.cj.jdbc.Driver
