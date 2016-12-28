@@ -4,6 +4,7 @@ spring:
         platform: h2
         username: sa
         password:
+        driverClassName: org.h2.Driver
 
     h2:
       console:
