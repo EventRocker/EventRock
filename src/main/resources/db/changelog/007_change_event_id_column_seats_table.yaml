@@ -7,5 +7,4 @@ databaseChangeLog:
           - addNotNullConstraint:
               columnDataType: bigint
               columnName: event_id
-              schemaName: public
               tableName: seats
