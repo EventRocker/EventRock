@@ -60,6 +60,7 @@ dependencies {
     compile group: 'org.yaml', name: 'snakeyaml', version: '1.17'
     compile group: 'org.liquibase', name: 'liquibase-core'
     compile("com.h2database:h2")
+    compile 'org.hibernate:hibernate-java8'
 }
 
 // This is used as the docker image prefix (org)
@@ -94,7 +95,6 @@ liquibase {
     activities {
         main {
             changeLogFile 'src/main/resources/db/changelog/db.changelog-master.yaml'
-            url 'jdbc:postgresql://localhost:5432/eventrock'
             username 'postgres'
             password 'mysecretpassword'
             driver 'org.postgresql.Driver'
