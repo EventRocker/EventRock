@@ -17,3 +17,6 @@ databaseChangeLog:
     - include:
           file: 006_add_user_id_to_events_table.yaml
           relativeToChangelogFile: true
+    - include:
+          file: 007_change_event_id_column_seats_table.yaml
+          relativeToChangelogFile: true

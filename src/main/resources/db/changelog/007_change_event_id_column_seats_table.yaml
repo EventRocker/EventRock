@@ -1,0 +1,11 @@
+databaseChangeLog:
+    - changeSet:
+        id: 007
+        author: cos
+        logicalFilePath: 'change_event_id_column_seats_table'
+        changes:
+          - addNotNullConstraint:
+              columnDataType: bigint
+              columnName: event_id
+              schemaName: public
+              tableName: seats

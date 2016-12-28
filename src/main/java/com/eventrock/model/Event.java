@@ -116,6 +116,7 @@ public class Event {
     }
 
     public void setSeat(Seat seat) {
+        seat.setEvent(this);
         this.seat = seat;
     }
 

@@ -2,6 +2,7 @@ package com.eventrock.controller;
 
 
 import com.eventrock.model.Event;
+import com.eventrock.model.Seat;
 import com.eventrock.repository.EventRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -106,10 +108,20 @@ public class EventControllerTest {
 
     @Test
     public void viewDetail_shouldReturnDetailPage() throws Exception {
-        assertThat(eventController.viewDetail(new ExtendedModelMap()), is("event/showEvent"));
+        assertThat(eventController.viewDetail(new ExtendedModelMap(), 1), is("event/showEvent"));
+    }
+
+    @Test
+    public void viewDetail_shouldGetEventFromEventRepository() throws Exception {
+        Model model = new ExtendedModelMap();
+        Event event = stubEvent("event1");
+        Mockito.when(eventRepository.findOne(1L)).thenReturn(event);
+        eventController.viewDetail(model, 1);
+        assertThat(model.asMap().get("event"), is(event));
     }
 
     private Event stubEvent(String name) {
+        Seat seat = stubSeat();
         Event event = new Event();
         event.setName(name);
         event.setDescription("This is Description");
@@ -117,6 +129,17 @@ public class EventControllerTest {
         event.setEndDate(LocalDate.of(2016,12,31));
         event.setStartTime(LocalTime.MIDNIGHT);
         event.setEndTime(LocalTime.MIDNIGHT);
+        event.setSeat(seat);
+        seat.setEvent(event);
         return event;
+    }
+
+    private Seat stubSeat() {
+        Seat seat = new Seat();
+        seat.setName("Normal");
+        seat.setId(1L);
+        seat.setNumberOfSeats(20);
+        seat.setPrice(BigDecimal.valueOf(100));
+        return seat;
     }
 }
