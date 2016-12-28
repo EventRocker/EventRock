@@ -1,8 +1,10 @@
 package com.eventrock.controller;
 
 import com.eventrock.model.Event;
+import com.eventrock.model.User;
 import com.eventrock.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +29,7 @@ public class EventController {
     public String index(Model model) {
         Event event = new Event();
         model.addAttribute("event", event);
+        model.addAttribute("event", new Event());
         return "event/createEvent";
     }
 
@@ -34,7 +37,7 @@ public class EventController {
     public String createEvent(Event event, BindingResult bindingResult, Model model) {
         model.addAttribute("event", event);
         model.addAttribute("success", true);
-
+        event.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         eventRepository.save(event);
         return "event/showEvent";
     }

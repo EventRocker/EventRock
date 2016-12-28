@@ -19,6 +19,7 @@ public class User implements UserDetails {
 
     @NotNull
     @NotEmpty
+    @Column(unique = true)
     private String username;
 
     @NotNull

@@ -25,7 +25,7 @@ public class UserController {
     @RequestMapping(value = "/registration" , method = RequestMethod.GET)
     public String registration(Model model){
         model.addAttribute("userForm", new User());
-        return "registration";
+        return "user/registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -34,7 +34,7 @@ public class UserController {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "user/registration";
         }
         userService.save(userForm);
 
@@ -47,7 +47,7 @@ public class UserController {
             model.addAttribute("error", "Your username and password is invalid.");
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
-        return "login";
+        return "user/login";
     }
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)

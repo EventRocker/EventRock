@@ -1,15 +1,18 @@
 package com.eventrock.controller;
 
-
 import com.eventrock.model.Event;
 import com.eventrock.model.Seat;
+import com.eventrock.model.User;
 import com.eventrock.repository.EventRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +26,8 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventControllerTest {
@@ -35,6 +40,15 @@ public class EventControllerTest {
 
     @InjectMocks
     private EventController eventController;
+
+    @Mock
+    private User user;
+
+    @Before
+    public void setUp() throws Exception {
+        User user = new User();
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, null));
+    }
 
     @Test
     public void index_shouldReturnCreatePage() throws Exception {
@@ -79,6 +93,15 @@ public class EventControllerTest {
     }
 
     @Test
+    public void createEvent_shouldSetUser() throws Exception {
+        Model model = new ExtendedModelMap();
+        Event event = spy(stubEvent("Event name"));
+
+        eventController.createEvent(event, bindingResult, model);
+        Mockito.verify(event).setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    }
+
+    @Test
     public void viewAllEvent_shouldReturnIndexPage() throws Exception {
         assertThat(eventController.viewAllEvents(new ExtendedModelMap()), is("event/index"));
     }
@@ -99,7 +122,7 @@ public class EventControllerTest {
         events.add(stubEvent("event1"));
         events.add(stubEvent("event2"));
 
-        Mockito.when(eventRepository.findAll()).thenReturn(events);
+        when(eventRepository.findAll()).thenReturn(events);
 
         eventController.viewAllEvents(model);
 
@@ -125,8 +148,8 @@ public class EventControllerTest {
         Event event = new Event();
         event.setName(name);
         event.setDescription("This is Description");
-        event.setStartDate(LocalDate.of(2016,12,24));
-        event.setEndDate(LocalDate.of(2016,12,31));
+        event.setStartDate(LocalDate.of(2016, 12, 24));
+        event.setEndDate(LocalDate.of(2016, 12, 31));
         event.setStartTime(LocalTime.MIDNIGHT);
         event.setEndTime(LocalTime.MIDNIGHT);
         event.setSeat(seat);

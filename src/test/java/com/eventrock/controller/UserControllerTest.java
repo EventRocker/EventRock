@@ -45,7 +45,7 @@ public class UserControllerTest {
 
     @Test
     public void registration_shouldReturnRegistrationPage() throws Exception {
-        assertThat(subject.registration(model), is("registration"));
+        assertThat(subject.registration(model), is("user/registration"));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class UserControllerTest {
     @Test
     public void createUser_WhenGivenBindingResultHasErrors_shouldReturnRegistrationPage() throws Exception {
         when(bindingResult.hasErrors()).thenReturn(true);
-        assertThat(subject.createUser(user, bindingResult, new ExtendedModelMap()), is("registration"));
+        assertThat(subject.createUser(user, bindingResult, new ExtendedModelMap()), is("user/registration"));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class UserControllerTest {
 
     @Test
     public void login_shouldReturnLoginPage() throws Exception {
-        assertThat(subject.login(model,"",""), is("login"));
+        assertThat(subject.login(model,"",""), is("user/login"));
     }
 
     @Test
