@@ -37,7 +37,6 @@ databaseChangeLog:
                   baseColumnNames: event_id
                   baseTableName: seats
                   constraintName: fk_event_seat
-                  deferrable: true
                   onDelete: CASCADE
                   onUpdate: RESTRICT
                   referencedColumnNames: id
