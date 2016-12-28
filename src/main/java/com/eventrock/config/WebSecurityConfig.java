@@ -1,5 +1,6 @@
 package com.eventrock.config;
 
+import com.eventrock.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     @Qualifier("userDetailsService")
-    UserDetailsService userDetailsService;
+    UserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -41,10 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-                .antMatchers("/", "/home","/registration", "/events/**").permitAll()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/organizer/**").hasRole("ORGANIZER")
-//                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/", "/home","/registration", "/event/**").permitAll()
                 .antMatchers("/hello").authenticated()
                 .anyRequest().authenticated()
             .and()
@@ -59,15 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("user").password("password").roles("USER")
-//                .and()
-//                .withUser("organizer").password("password").roles("USER","ORGANIZER")
-//                .and()
-//                .withUser("admin").password("password").roles("ADMIN","USER","ORGANIZER");
-
-        auth.userDetailsService(userDetailsService).passwordEncoder(
+        auth.userDetailsService((UserDetailsService) userService).passwordEncoder(
                 passwordEncoder());
     }
 
