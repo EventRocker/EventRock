@@ -11,6 +11,7 @@ buildscript {
         classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.9"
         classpath('se.transmode.gradle:gradle-docker:1.2')
         classpath('org.postgresql:postgresql:9.4-1201-jdbc41')
+        classpath("com.h2database:h2:1.4.193")
         classpath('org.yaml:snakeyaml:1.17')
     }
 }
@@ -95,10 +96,20 @@ liquibase {
     activities {
         main {
             changeLogFile 'src/main/resources/db/changelog/db.changelog-master.yaml'
-            url 'jdbc:postgresql://localhost:5432/eventrock'
-            username 'postgres'
-            password 'mysecretpassword'
-            driver 'org.postgresql.Driver'
+
+            if (project.hasProperty('h2')) {
+
+                url 'jdbc:h2:~/eventrock;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'
+                username 'sa'
+                password ''
+                driver 'org.h2.Driver'
+
+            } else {
+                url 'jdbc:postgresql://localhost:5432/eventrock'
+                username 'postgres'
+                password 'mysecretpassword'
+                driver 'org.postgresql.Driver'
+            }
         }
     }
 }
