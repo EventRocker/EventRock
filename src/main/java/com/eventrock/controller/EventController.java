@@ -28,8 +28,6 @@ public class EventController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String index(Model model) {
-        Event event = new Event();
-        model.addAttribute("event", event);
         model.addAttribute("event", new Event());
         return "event/createEvent";
     }
@@ -53,7 +51,7 @@ public class EventController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String viewDetail(Model model, @PathVariable long id) {
         Optional<Event> event = eventRepository.findOneById(id);
-        if(!event.isPresent()){
+        if (!event.isPresent()) {
             return "pageNotFound";
         }
         model.addAttribute("event", event.get());

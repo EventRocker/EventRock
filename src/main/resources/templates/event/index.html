@@ -6,9 +6,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 </head>
 <body>
+<div th:include="header"></div>
 <div class="container">
     <div class = "row">
         <h1>All events</h1>
+        <h1>User:</h1>
+        <h1 th:text="${user}"></h1>
         <a th:href="@{'/events/create'}" class="btn btn-sm btn-primary">Create New Event</a>
         <table class="table">
             <thead>
