@@ -2,27 +2,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
 <head>
     <title>Sign Up</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 </head>
 <body>
-<h1>Welcome!</h1>
-<form th:action="@{/registration}" th:object="${userForm}" method="post">
-    <div th:if="${#fields.hasErrors('${userForm.username}')}">
-        <p>Username Should not Empty or Contain only Space</p>
-    </div>
-    <label>Username</label>:
-    <input type="text" id="username" th:field="${userForm.username}" /> <br />
-    <div th:if="${#fields.hasErrors('${userForm.password}')}">
-        <p>Password Should not Empty or Contain only Space</p>
-    </div>
-    <div th:if="${#fields.hasErrors('${userForm.passwordConfirm}')}">
-        <p>Confirm Password Must same as Password</p>
-    </div>
-    <label for="password">Password</label>:
-    <input type="password" id="password" th:field="${userForm.password}" /> <br />
-    <label for="passwordConfirm">Confirm Password</label>:
-    <input type="password" id="passwordConfirm" th:field="${userForm.passwordConfirm}" /> <br />
-    <input type="submit" value="Sign up"/>
-</form>
-<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+<div class="container">
+    <h1>Sign Up!</h1>
+    <br/>
+    <form th:action="@{/registration}" th:object="${userForm}" method="post">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <br/>
+            <input class="form-control" type="text" id="username" placeholder="Username"
+                   th:field="${userForm.username}"/>
+            <div th:if="${#fields.hasErrors('${userForm.username}')}" style="color: red">
+                <p>Username Should not Empty or Contain only Space</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>:
+            <input class="form-control" type="password" id="password" placeholder="Password"
+                   th:field="${userForm.password}"/>
+            <div th:if=" ${#fields.hasErrors(
+            '${userForm.password}')}" style="color: red">
+                <p>Password Should not Empty or Contain only Space</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="passwordConfirm">Confirm Password</label>:
+            <input class="form-control" type="password" id="passwordConfirm" placeholder="Password Confirm"
+                   th:field="${userForm.passwordConfirm}"/> <br/>
+            <div th:if="${#fields.hasErrors('${userForm.passwordConfirm}')}" style="color: red">
+                <p>Confirm Password Must same as Password</p>
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Sign up"/>
+    </form>
+</div>
 </body>
 </html>
