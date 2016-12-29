@@ -1,5 +1,6 @@
 package com.eventrock.controller;
 
+import com.eventrock.model.Booking;
 import com.eventrock.model.Event;
 import com.eventrock.model.User;
 import com.eventrock.repository.EventRepository;
@@ -57,5 +58,29 @@ public class EventController {
         model.addAttribute("event", event.get());
         model.addAttribute("success", false);
         return "event/showEvent";
+    }
+
+    @RequestMapping(value = "/{id}/confirmation", method = RequestMethod.POST)
+    public String confirmation(Model model) {
+        return "event/confirmation";
+    }
+
+
+    @RequestMapping(value = "/{id}/book", method = RequestMethod.GET)
+    public String book(Model model, @PathVariable long id) {
+        Optional<Event> event = eventRepository.findOneById(id);
+        model.addAttribute("event", event.get());
+
+
+        Booking booking = new Booking();
+        booking.setNumberOfSeats(1L);
+
+        model.addAttribute("booking", booking);
+
+        if (!event.isPresent()) {
+            return "pageNotFound";
+        }
+
+        return "event/book";
     }
 }

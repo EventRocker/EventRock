@@ -57,6 +57,10 @@
         <span th:text="${event.seat.numberOfSeats}"></span>
     </div>
 
+    <div>
+        <a th:href="@{'/events/' + ${event.id}} + '/book'" class="btn btn-xlarge btn-primary">Book</a>
+    </div>
+
 </div>
 </body>
 </html>

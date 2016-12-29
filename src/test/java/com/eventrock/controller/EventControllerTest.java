@@ -1,5 +1,6 @@
 package com.eventrock.controller;
 
+import com.eventrock.model.Booking;
 import com.eventrock.model.Event;
 import com.eventrock.model.Seat;
 import com.eventrock.model.User;
@@ -144,6 +145,42 @@ public class EventControllerTest {
         Mockito.when(eventRepository.findOneById(1L)).thenReturn(Optional.of(event));
         eventController.viewDetail(model, 1);
         assertThat(model.asMap().get("event"), is(event));
+    }
+
+    @Test
+    public void confirmation_shouldReturnConfirmationPage() throws Exception {
+        assertThat(eventController.confirmation(new ExtendedModelMap()), is("event/confirmation"));
+    }
+
+    @Test
+    public void book_shouldReturnBookPage() throws Exception {
+        Model model = new ExtendedModelMap();
+        Event event = stubEvent("event1");
+        Mockito.when(eventRepository.findOneById(1L)).thenReturn(Optional.of(event));
+
+        assertThat(eventController.book(model, 1), is("event/book"));
+    }
+
+    @Test
+    public void book_shouldGetEventFromEventRepository() throws Exception {
+        Model model = new ExtendedModelMap();
+        Event event = stubEvent("event1");
+        Mockito.when(eventRepository.findOneById(1L)).thenReturn(Optional.of(event));
+
+        eventController.book(model, 1);
+
+        assertThat(model.asMap().get("event"), is(event));
+    }
+
+    @Test
+    public void book_shouldHaveOneSeatBooking() throws Exception {
+        Model model = new ExtendedModelMap();
+        Event event = stubEvent("event1");
+        Mockito.when(eventRepository.findOneById(1L)).thenReturn(Optional.of(event));
+
+        eventController.book(model, 1);
+
+        assertThat(((Booking) model.asMap().get("booking")).getNumberOfSeats(), is(1L));
     }
 
     private Event stubEvent(String name) {
