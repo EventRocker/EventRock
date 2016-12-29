@@ -70,6 +70,10 @@ public class EventControllerTest {
         Model model = new ExtendedModelMap();
         Event event = new Event();
         event.setName("Event_Name");
+        Event savedEvent = new Event();
+        savedEvent.setId(1L);
+        when(eventRepository.save(event)).thenReturn(savedEvent);
+
         eventController.createEvent(event, bindingResult, model);
 
         assertThat(model.asMap().get("event"), is(event));
@@ -80,6 +84,10 @@ public class EventControllerTest {
         Model model = new ExtendedModelMap();
         Event event = new Event();
         event.setName("Event_Name");
+        Event savedEvent = new Event();
+        savedEvent.setId(1L);
+        when(eventRepository.save(event)).thenReturn(savedEvent);
+
         eventController.createEvent(event, bindingResult, model);
 
         assertThat(model.asMap().get("success"), is(true));
@@ -89,6 +97,10 @@ public class EventControllerTest {
     public void createEvent_shouldSaveEventToDatabase() throws Exception {
         Model model = new ExtendedModelMap();
         Event event = stubEvent("Event name");
+        Event savedEvent = new Event();
+        savedEvent.setId(1L);
+        when(eventRepository.save(event)).thenReturn(savedEvent);
+
         eventController.createEvent(event, bindingResult, model);
 
         Mockito.verify(eventRepository).save(event);
@@ -97,10 +109,14 @@ public class EventControllerTest {
     @Test
     public void createEvent_shouldSetUser() throws Exception {
         Model model = new ExtendedModelMap();
-        Event event = spy(stubEvent("Event name"));
+        Event event = stubEvent("Event name");
+        Event savedEvent = new Event();
+        savedEvent.setId(1L);
+        when(eventRepository.save(event)).thenReturn(savedEvent);
 
         eventController.createEvent(event, bindingResult, model);
-        Mockito.verify(event).setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        assertThat(event.getUser(), is((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
     }
 
     @Test
@@ -148,40 +164,22 @@ public class EventControllerTest {
     }
 
     @Test
-    public void confirmation_shouldReturnConfirmationPage() throws Exception {
-        assertThat(eventController.confirmation(new ExtendedModelMap()), is("event/confirmation"));
-    }
-
-    @Test
-    public void book_shouldReturnBookPage() throws Exception {
+    public void viewDetail_shouldHaveOneSeatForBooking() throws Exception {
         Model model = new ExtendedModelMap();
         Event event = stubEvent("event1");
         Mockito.when(eventRepository.findOneById(1L)).thenReturn(Optional.of(event));
 
-        assertThat(eventController.book(model, 1), is("event/book"));
-    }
-
-    @Test
-    public void book_shouldGetEventFromEventRepository() throws Exception {
-        Model model = new ExtendedModelMap();
-        Event event = stubEvent("event1");
-        Mockito.when(eventRepository.findOneById(1L)).thenReturn(Optional.of(event));
-
-        eventController.book(model, 1);
-
-        assertThat(model.asMap().get("event"), is(event));
-    }
-
-    @Test
-    public void book_shouldHaveOneSeatBooking() throws Exception {
-        Model model = new ExtendedModelMap();
-        Event event = stubEvent("event1");
-        Mockito.when(eventRepository.findOneById(1L)).thenReturn(Optional.of(event));
-
-        eventController.book(model, 1);
+        eventController.viewDetail(model, 1);
 
         assertThat(((Booking) model.asMap().get("booking")).getNumberOfSeats(), is(1L));
     }
+
+    @Test
+    public void confirmBooking_shouldReturnConfirmationPage() throws Exception {
+        assertThat(eventController.confirmBooking(new ExtendedModelMap()), is("event/confirmBooking"));
+    }
+
+
 
     private Event stubEvent(String name) {
         Seat seat = stubSeat();

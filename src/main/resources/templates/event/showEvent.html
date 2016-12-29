@@ -52,13 +52,17 @@
         <label> Seat Price: </label>
         <span th:text="${event.seat.price}"></span>
     </div>
-    <div>
-        <label> Number of seats: </label>
-        <span th:text="${event.seat.numberOfSeats}"></span>
-    </div>
 
     <div>
-        <a th:href="@{'/events/' + ${event.id}} + '/book'" class="btn btn-xlarge btn-primary">Book</a>
+        <form th:action="@{/events/event.id/confirmation}" method="post">
+            <div class="form-group">
+                <label>Number of Seats:</label>
+                <input type="text" th:field="${booking.numberOfSeats}"/>
+                <input type="hidden" th:field="${event.id}"/>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Book"/>
+        </form>
     </div>
 
 </div>

@@ -19,7 +19,7 @@
 
     <br/><br/>
 
-    <form th:action="@{/events/event.id/confirmation}" method="post">
+    <form th:action="@{/events/${event.id}/confirmBooking}" method="post">
         <div class="form-group">
             <label>number of seat</label>
             <input type="text" th:field="${booking.numberOfSeats}"/>

@@ -38,8 +38,9 @@ public class EventController {
         model.addAttribute("event", event);
         model.addAttribute("success", true);
         event.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        eventRepository.save(event);
-        return "event/showEvent";
+        Event savedEvent = eventRepository.save(event);
+
+        return "redirect:/events/" + savedEvent.getId();
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -55,14 +56,19 @@ public class EventController {
         if (!event.isPresent()) {
             return "pageNotFound";
         }
+
+        Booking booking = new Booking();
+        booking.setNumberOfSeats(1L);
+
+        model.addAttribute("booking", booking);
         model.addAttribute("event", event.get());
         model.addAttribute("success", false);
         return "event/showEvent";
     }
 
     @RequestMapping(value = "/{id}/confirmation", method = RequestMethod.POST)
-    public String confirmation(Model model) {
-        return "event/confirmation";
+    public String confirmBooking(Model model) {
+        return "event/confirmBooking";
     }
 
 
