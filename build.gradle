@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.4.3.RELEASE'
+        springBootVersion = "1.4.3.RELEASE"
     }
     repositories {
         mavenCentral()
@@ -8,29 +8,29 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.9"
-        classpath('se.transmode.gradle:gradle-docker:1.2')
-        classpath('org.postgresql:postgresql:9.4-1201-jdbc41')
+        classpath("com.github.samueltbrown:gradle-cucumber-plugin:0.9")
+        classpath("se.transmode.gradle:gradle-docker:1.2")
+        classpath("org.postgresql:postgresql:9.4-1201-jdbc41")
         classpath("com.h2database:h2:1.4.193")
-        classpath('mysql:mysql-connector-java:6.0.4')
-        classpath('org.yaml:snakeyaml:1.17')
+        classpath("mysql:mysql-connector-java:6.0.4")
+        classpath("org.yaml:snakeyaml:1.17")
     }
 }
 
 plugins {
-    id 'org.liquibase.gradle' version '1.2.1'
+    id "org.liquibase.gradle" version "1.2.1"
 }
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
+apply plugin: "java"
+apply plugin: "org.springframework.boot"
 apply plugin: "com.github.samueltbrown.cucumber"
-apply plugin: 'docker'
+apply plugin: "docker"
 
 
 
 jar {
-    baseName = 'eventrock'
-    version = '0.0.1-SNAPSHOT'
+    baseName = "eventrock"
+    version = "0.0.1-SNAPSHOT"
 }
 
 sourceCompatibility = 1.8
@@ -41,39 +41,42 @@ repositories {
 }
 
 cucumber {
-    formats = ['pretty','json:build/cucumber.json','junit:build/cucumber.xml']
+    formats = ["pretty","json:build/cucumber.json","junit:build/cucumber.xml"]
 }
 
 
 dependencies {
     compile("org.springframework.boot:spring-boot-devtools")
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-security')
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.thymeleaf.extras:thymeleaf-extras-java8time')
-    compile('org.springframework.cloud:spring-cloud-starter-hystrix:1.2.3.RELEASE')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    cucumberCompile('info.cukes:cucumber-junit:1.2.5')
-    cucumberCompile('info.cukes:cucumber-spring:1.2.5')
-    compile 'org.springframework.data:spring-data-jpa:1.10.6.RELEASE'
-    compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
-    compile 'mysql:mysql-connector-java:6.0.4'
-    compile group: 'org.yaml', name: 'snakeyaml', version: '1.17'
-    compile group: 'org.liquibase', name: 'liquibase-core'
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.thymeleaf.extras:thymeleaf-extras-java8time")
+    compile("org.springframework.cloud:spring-cloud-starter-hystrix:1.2.3.RELEASE")
+    compile("org.springframework.cloud:spring-cloud-starter-feign:1.2.2.RELEASE")
+    compile("org.springframework.data:spring-data-jpa:1.10.6.RELEASE")
+    compile("org.postgresql:postgresql:9.4-1201-jdbc41")
+    compile("mysql:mysql-connector-java:6.0.4")
+    compile("org.yaml:snakeyaml:1.17")
+    compile("org.liquibase:liquibase-core")
     compile("com.h2database:h2")
-    compile 'org.hibernate:hibernate-java8'
+    compile("org.hibernate:hibernate-java8")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+
+    cucumberCompile("info.cukes:cucumber-junit:1.2.5")
+    cucumberCompile("info.cukes:cucumber-spring:1.2.5")
 }
 
 // This is used as the docker image prefix (org)
-group = 'eventrock'
+group = "eventrock"
 
 task buildDocker(type: Docker, dependsOn: build) {
 	push = true
 	applicationName = jar.baseName
-	dockerfile = file('src/main/docker/Dockerfile')
+	dockerfile = file("src/main/docker/Dockerfile")
     doFirst {
         copy {
             from jar
@@ -86,32 +89,32 @@ task herokuProfile << {
     bootRun { systemProperty "spring.profiles.active", "heroku" }
 }
 
-herokuProfile {}.finalizedBy 'bootRun'
+herokuProfile {}.finalizedBy "bootRun"
 
 task h2Profile << {
     bootRun { systemProperty "spring.profiles.active", "h2" }
 }
 
-h2Profile {}.finalizedBy 'bootRun'
+h2Profile {}.finalizedBy "bootRun"
 
 
 liquibase {
     activities {
         main {
-            changeLogFile 'src/main/resources/db/changelog/db.changelog-master.yaml'
+            changeLogFile "src/main/resources/db/changelog/db.changelog-master.yaml"
 
-            if (project.hasProperty('h2')) {
+            if (project.hasProperty("h2")) {
 
-                url 'jdbc:h2:file:./build/h2db/db/eventrock;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'
-                username 'sa'
-                password ''
-                driver 'org.h2.Driver'
+                url "jdbc:h2:file:./build/h2db/db/eventrock;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+                username "sa"
+                password ""
+                driver "org.h2.Driver"
 
             } else {
-                url 'jdbc:mysql://localhost:3306/eventrock?nullNamePatternMatchesAll=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&createDatabaseIfNotExist=true&serverTimezone=Asia/Bangkok&useTimezone=true'
-                username 'eventrock'
-                password 'mysecretpassword'
-                driver 'com.mysql.cj.jdbc.Driver'
+                url "jdbc:mysql://localhost:3306/eventrock?nullNamePatternMatchesAll=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&createDatabaseIfNotExist=true&serverTimezone=Asia/Bangkok&useTimezone=true"
+                username "eventrock"
+                password "mysecretpassword"
+                driver "com.mysql.cj.jdbc.Driver"
             }
         }
     }
